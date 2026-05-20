@@ -45,17 +45,12 @@ UI должен быть в **том же namespace**, что и Kafka (инач
 
 ## Подключение из кластера
 
-Bootstrap (тот же namespace, что и деплой):
+- **Тот же namespace, что и деплой Kafka:** `kafka:9092`
+- **Другой namespace:** `kafka.<namespace-где-kafka>.svc.cluster.local:9092` (namespace подставляется в `KAFKA_BOOTSTRAP_SERVERS` у клиента, не в манифест Kafka)
 
-- **Host:** `kafka`
-- **Port:** `9092`
-- **Protocol:** PLAINTEXT (без TLS и SASL)
+Брокер в metadata отдаёт `kafka.<свой-namespace>.svc.cluster.local:9092` (через `POD_NAMESPACE` в Deployment). Namespace в yaml Kafka **не зашит**.
 
-Пример URL для Java-клиентов: `kafka:9092`
-
-Из другого namespace:
-
-- `kafka.<namespace>.svc.cluster.local:9092`
+**Protocol:** PLAINTEXT (без TLS и SASL)
 
 ## Данные
 
